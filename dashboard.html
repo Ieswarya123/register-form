@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Digital Bank - Dashboard</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f9;
+}
+
+.header {
+  background: #1e88e5;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.amount {
+  font-size: 24px;
+  color: #2e7d32;
+}
+
+button {
+  padding: 10px 15px;
+  background: #1e88e5;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1565c0;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  🏦 Smart Digital Bank Dashboard
+</div>
+
+<div class="container">
+  <div class="card">
+    <h3>Welcome, User 👋</h3>
+    <p>Last Login: Today</p>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h4>Account Balance</h4>
+      <p class="amount" id="balance">₹25000</p>
+    </div>
+
+    <div class="card">
+      <h4>Quick Transfer</h4>
+      <button onclick="window.location.href='transfer.html'">Transfer Money</button>
+    </div>
+
+    <div class="card">
+      <h4>Transaction History</h4>
+      <button onclick="window.location.href='history.html'">View History</button>
+    </div>
+
+    <div class="card">
+      <h4>Logout</h4>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Store initial balance if not exists
+if (!localStorage.getItem('balance')) {
+  localStorage.setItem('balance', 25000);
+}
+
+document.getElementById('balance').innerText = "₹" + localStorage.getItem('balance');
+
+function logout() {
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

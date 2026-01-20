@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Digital Bank - Login/Register</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f6fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.login-box {
+  background: #ffffff;
+  width: 350px;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.login-box h2 { color: #1e88e5; margin-bottom: 20px; }
+.login-box input { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+.login-box button { width: 95%; padding: 10px; margin-top: 15px; border: none; border-radius: 5px; background: #1e88e5; color: white; font-size: 16px; cursor: pointer; }
+.login-box button:hover { background: #1565c0; }
+.switch { margin-top: 10px; font-size: 14px; color: gray; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- Login Box -->
+<div class="login-box" id="loginBox">
+  <h2>🏦 Smart Digital Bank</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button type="button" onclick="login()">Login</button>
+  <div class="switch" onclick="showRegister()">Don't have an account? Register</div>
+</div>
+
+<!-- Register Box -->
+<div class="login-box" id="registerBox" style="display:none;">
+  <h2>🏦 Register</h2>
+  <input type="text" id="regUsername" placeholder="Username">
+  <input type="password" id="regPassword" placeholder="Password">
+  <button type="button" onclick="register()">Register</button>
+  <div class="switch" onclick="showLogin()">Already have an account? Login</div>
+</div>
+
+<script>
+function showRegister(){
+  document.getElementById('loginBox').style.display='none';
+  document.getElementById('registerBox').style.display='block';
+}
+
+function showLogin(){
+  document.getElementById('loginBox').style.display='block';
+  document.getElementById('registerBox').style.display='none';
+}
+
+// Register new user
+function register() {
+  const username = document.getElementById('regUsername').value.trim();
+  const password = document.getElementById('regPassword').value;
+  if(username === "" || password === "") { alert("Please fill all fields"); return; }
+
+  // Get existing users
+  let users = JSON.parse(localStorage.getItem('users') || '[]');
+
+  // Check if username already exists
+  if(users.find(u=>u.username===username)){
+    alert("Username already exists!");
+    return;
+  }
+
+  // Add new user with default balance & empty history
+  users.push({username: username, password: password, balance: 25000, history: []});
+  localStorage.setItem('users', JSON.stringify(users));
+  alert("Registration successful! Please login.");
+  showLogin();
+}
+
+// Login user
+function login() {
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+
+  let users = JSON.parse(localStorage.getItem('users') || '[]');
+  const user = users.find(u => u.username===username && u.password===password);
+
+  if(user) {
+    localStorage.setItem('loggedUser', JSON.stringify(user));
+    window.location.href='dashboard.html';
+  } else {
+    alert("Invalid username or password");
+  }
+}
+</script>
+
+</body>
+</html>

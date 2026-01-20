@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Digital Bank - Transaction History</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+  padding: 20px;
+}
+
+h2 {
+  color: #1e88e5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid #ccc;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: #1e88e5;
+  color: white;
+}
+
+button {
+  padding: 10px 15px;
+  background: #1e88e5;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+button:hover {
+  background: #1565c0;
+}
+</style>
+</head>
+<body>
+
+<h2>📄 Transaction History</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Date & Time</th>
+      <th>Recipient</th>
+      <th>Amount (₹)</th>
+    </tr>
+  </thead>
+  <tbody id="historyTable">
+  </tbody>
+</table>
+
+<button onclick="goBack()">Back to Dashboard</button>
+
+<script>
+function goBack() {
+  window.location.href = "dashboard.html";
+}
+
+// Load transaction history
+let history = JSON.parse(localStorage.getItem('history') || '[]');
+let tbody = document.getElementById('historyTable');
+
+history.forEach(tran => {
+  let row = document.createElement('tr');
+  row.innerHTML = `<td>${tran.date}</td><td>${tran.recipient}</td><td>${tran.amount}</td>`;
+  tbody.appendChild(row);
+});
+</script>
+
+</body>
+</html>

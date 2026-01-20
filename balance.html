@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Digital Bank - Balance</title>
+<style>
+body {font-family: Arial, sans-serif; background:#f4f6f9; display:flex; justify-content:center; align-items:center; height:100vh;}
+.balance-box {background:white; padding:30px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); width:350px; text-align:center;}
+.balance-box h2 {color:#1e88e5; margin-bottom:20px;}
+.balance {font-size:24px; font-weight:bold; color:green; margin:20px 0;}
+button {width:95%; padding:10px; margin-top:15px; border:none; border-radius:5px; background:#1e88e5; color:white; font-size:16px; cursor:pointer;}
+button:hover {background:#1565c0;}
+</style>
+</head>
+<body>
+<div class="balance-box">
+  <h2>💰 Account Balance</h2>
+  <div id="balance" class="balance">Loading...</div>
+  <button onclick="goBack()">Back to Dashboard</button>
+</div>
+<script>
+function calculateBalance() {
+  let currentUser = localStorage.getItem("currentUser");
+  let users = JSON.parse(localStorage.getItem("users"));
+  let balance = users[currentUser].balance;
+  document.getElementById("balance").textContent = "₹" + balance;
+}
+function goBack(){ window.location.href="dashboard.html"; }
+window.onload = calculateBalance;
+</script>
+</body>
+</html>
+
